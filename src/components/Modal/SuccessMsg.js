@@ -1,19 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux/es/exports";
 import { Alert, Snackbar } from "@mui/material";
-const SuccessMsg = ({ open, ...otherProps }) => {
+const SuccessMsg = () => {
+  const { success, loading } = useSelector((state) => state.studentReducer);
+  const [show, setShow] = useState(loading);
+  const handleClose = () => {
+    setShow(false);
+  };
   return (
     <>
-      <Snackbar open={open} onClose={otherProps.handleClose}
-       anchorOrigin={{vertical:"bottom",horizontal:"center"}}
+      <Snackbar
+        open={show}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
-        <Alert
-          onClose={otherProps.handleClose}
-         
-          severity="success"
-          sx={{ width: "100%",}}
-        >
-{otherProps.title}
-
+        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+          {success}
         </Alert>
       </Snackbar>
     </>

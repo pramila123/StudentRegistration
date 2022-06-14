@@ -6,3 +6,7 @@ export const postStudent = (values) => {
 export const getStudent = () => {
   return axios.get("http://localhost:8888/student/list");
 };
+
+export const deleteStudentById=(id)=>{
+  return axios.delete(`http://localhost:8888/student/delete/${id}`)
+}

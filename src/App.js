@@ -5,7 +5,11 @@ import Home from "./components/Home/Home";
 import {GlobalStyle} from './globalStyles'
 import Header from "./components/Home/Header";
 import Footer from "./components/Footer";
+
+
+
 function App() {
+  
   return (
     <>
     <GlobalStyle/>

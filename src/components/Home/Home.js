@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 import Input from "../Form/Input";
 import { BsSearch } from "react-icons/bs";
 import Tables from "../Form/Tables";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector ,useDispatch} from "react-redux";
+import { student_head } from "../data";
 import { listStudent } from "../Redux/action";
 const HomeContainer = styled.div`
   background-color: #e0e1f4;
@@ -43,8 +44,11 @@ const SearchContainer = styled.div`
 `;
 const ButtonContainer = styled.div``;
 const Home = () => {
+  const dispatch=useDispatch();
+  useEffect(()=>{
+    dispatch(listStudent())
+  },[dispatch])
   const { students } = useSelector((state) => state.studentReducer);
-
 
   return (
     <HomeContainer>
@@ -62,7 +66,7 @@ const Home = () => {
       </TopContainer>
 
       <ButtonContainer>
-        <Tables />
+        <Tables tableHead={student_head} rows={students}/>
       </ButtonContainer>
     </HomeContainer>
   );

@@ -12,9 +12,9 @@ import FormikController from "../Form/FormikController";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { semester_data } from "../data";
-
+import { useNavigate } from "react-router-dom";
 import SuccessMsg from "../Modal/SuccessMsg";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { addStudent } from "../Redux/action";
 
 const StudentContainer = styled.div`
@@ -36,12 +36,11 @@ const AddStudent = () => {
     setFaculty(e.target.value);
   };
 
-  const [show, setShow] = useState(false);
-  const handleClose = () => {
-    setShow(false);
-  };
+  
 
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
+const {loading}=useSelector(state=>state.studentReducer);
+  const history = useNavigate();
   const formik = useFormik({
     initialValues: {
       sid: "",
@@ -96,10 +95,10 @@ const AddStudent = () => {
       address: Yup.string().required("Required"),
     }),
     onSubmit: (values) => {
-     
-dispatch(addStudent(values),setShow(true))
+      dispatch(addStudent(values),history("/"));
 
       formik.resetForm();
+      
     },
   });
 
@@ -320,11 +319,7 @@ dispatch(addStudent(values),setShow(true))
           </Grid>
         </Grid>
       </StudentContainer>
-      <SuccessMsg
-        open={show}
-        handleClose={handleClose}
-        title="Data Inserted Successfully"
-      />
+     {loading ? <SuccessMsg/>:""}
     </>
   );
 };
