@@ -5,7 +5,7 @@ import Buttons from "../Form/Buttons";
 import Input from "../Form/Input";
 import { BsSearch } from "react-icons/bs";
 import Tables from "../Form/Tables";
-import { useSelector ,useDispatch} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { student_head } from "../data";
 import { listStudent } from "../Redux/action";
 import AddStudent from "../Student/AddStudent";
@@ -45,22 +45,20 @@ const SearchContainer = styled.div`
 `;
 const ButtonContainer = styled.div``;
 const Home = () => {
-  const [open,setOpen]=useState(false);
+  const [open, setOpen] = useState(false);
 
-
-
-
- 
   const { students } = useSelector((state) => state.studentReducer);
 
   return (
     <HomeContainer>
       <TopContainer>
         <StudentLink>
-          <Buttons name="Add Student" className="btns" 
-          onClick={()=>{
-            setOpen(true)
-          }}
+          <Buttons
+            name="Add Student"
+            className="btns"
+            onClick={() => {
+              setOpen(true);
+            }}
           />
         </StudentLink>
 
@@ -73,11 +71,18 @@ const Home = () => {
       </TopContainer>
 
       <ButtonContainer>
-        <Tables tableHead={student_head} rows={students}/>
+        <Tables
+          tableHead={student_head}
+          rows={students}
+         
+        />
       </ButtonContainer>
-      <AddStudent open={open} handleClose={()=>{
-        setOpen(false)
-      }}/>
+      <AddStudent
+        open={open}
+        handleClose={() => {
+          setOpen(false);
+        }}
+      />
     </HomeContainer>
   );
 };

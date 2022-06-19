@@ -2,6 +2,7 @@ import * as React from "react";
 import { styled } from "@mui/material/styles";
 import { AiTwotoneDelete } from "react-icons/ai";
 import { FiEdit } from "react-icons/fi";
+import {Link} from 'react-router-dom'
 import {
   Tooltip,
   Table,
@@ -17,6 +18,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { deleteStudent, listStudent } from "../Redux/action";
 import SuccessMsg from "../Modal/SuccessMsg";
+import EditStudent from "../Student/EditStudent";
 const StyledTableContainer = styled(TableContainer)`
   height: 67vh;
 
@@ -82,7 +84,7 @@ const Tables = ({ tableHead, rows }) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
+  const [open, setOpen] = React.useState(false);
   return (
     <div>
       <StyledTableContainer component={Paper}>
@@ -148,11 +150,16 @@ const Tables = ({ tableHead, rows }) => {
                         </span>
                       </Tooltip>
 
-                      <Tooltip title="Edit">
+                     <Tooltip title="Edit">
+                    
                         <span>
-                          <FiEdit className="edit" />
+                         <FiEdit className="edit" onClick={()=>{
+                           setOpen(true)
+                         }} />
                         </span>
+                     
                       </Tooltip>
+                    
                     </div>
                   </StyledTableCell>
                 </StyledTableRow>
@@ -169,6 +176,9 @@ const Tables = ({ tableHead, rows }) => {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+      <EditStudent open={open}  handleClose={() => {
+          setOpen(false);
+        }}/>
        {loading ? <SuccessMsg />:""}
     </div>
   );

@@ -39,7 +39,7 @@ const StudentContainer = styled.div`
   }
 `;
 
-const AddStudent = ({ open, handleClose }) => {
+const EditStudent = ({ open, handleClose }) => {
   const [faculty, setFaculty] = useState("");
 
   const handleChange = (e) => {
@@ -62,7 +62,7 @@ const AddStudent = ({ open, handleClose }) => {
     <>
       <StyledDialog open={open} maxWidth="md" onClose={handleClose}>
         <StudentContainer>
-          <h1>Add Student</h1>
+          <h1>Edit Student</h1>
 
           <Grid container spacing={2} item p={3}>
             <Grid item xs={12} md={6}>
@@ -272,8 +272,8 @@ const AddStudent = ({ open, handleClose }) => {
               <FormikController
                 variant="contained"
                 control="buttons"
-                name="Register"
-                color="success"
+                name="Update"
+                color="warning"
                 onClick={formik.handleSubmit}
               />
             </Grid>
@@ -285,4 +285,4 @@ const AddStudent = ({ open, handleClose }) => {
   );
 };
 
-export default AddStudent;
+export default EditStudent;

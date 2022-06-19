@@ -9,5 +9,5 @@ export const getStudent = () => {
 };
 
 export const deleteStudentById=(id)=>{
-  return axios.delete(api`/student/delete/${id}`)
+  return axios.delete(api+`/student/delete/${id}`)
 }
