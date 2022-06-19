@@ -1,12 +1,13 @@
 import axios from "axios";
+const api="http://localhost:8888"
 export const postStudent = (values) => {
-  return axios.post("http://localhost:8888/student/register", values);
+  return axios.post(api+"/student/register", values);
 };
 
 export const getStudent = () => {
-  return axios.get("http://localhost:8888/student/list");
+  return axios.get(api+"/student/list");
 };
 
 export const deleteStudentById=(id)=>{
-  return axios.delete(`http://localhost:8888/student/delete/${id}`)
+  return axios.delete(api`/student/delete/${id}`)
 }

@@ -1,13 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Buttons from "../Form/Buttons";
-import { Link } from "react-router-dom";
+
 import Input from "../Form/Input";
 import { BsSearch } from "react-icons/bs";
 import Tables from "../Form/Tables";
 import { useSelector ,useDispatch} from "react-redux";
 import { student_head } from "../data";
 import { listStudent } from "../Redux/action";
+import AddStudent from "../Student/AddStudent";
 const HomeContainer = styled.div`
   background-color: #e0e1f4;
   height: 90vh;
@@ -21,7 +22,7 @@ const TopContainer = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
-const StudentLink = styled(Link)`
+const StudentLink = styled.div`
   text-decoration: none;
   .btns {
     padding: 0.3rem 1rem;
@@ -44,17 +45,23 @@ const SearchContainer = styled.div`
 `;
 const ButtonContainer = styled.div``;
 const Home = () => {
-  const dispatch=useDispatch();
-  useEffect(()=>{
-    dispatch(listStudent())
-  },[dispatch])
+  const [open,setOpen]=useState(false);
+
+
+
+
+ 
   const { students } = useSelector((state) => state.studentReducer);
 
   return (
     <HomeContainer>
       <TopContainer>
-        <StudentLink to="/student/register">
-          <Buttons name="Add Student" className="btns" />
+        <StudentLink>
+          <Buttons name="Add Student" className="btns" 
+          onClick={()=>{
+            setOpen(true)
+          }}
+          />
         </StudentLink>
 
         <SearchContainer>
@@ -68,6 +75,9 @@ const Home = () => {
       <ButtonContainer>
         <Tables tableHead={student_head} rows={students}/>
       </ButtonContainer>
+      <AddStudent open={open} handleClose={()=>{
+        setOpen(false)
+      }}/>
     </HomeContainer>
   );
 };

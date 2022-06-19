@@ -6,10 +6,12 @@ export const addStudent = (postData) => {
   return async (dispatch) => {
     await postStudent(postData)
       .then((res) => {
+    
         dispatch({
           type: POST_STUDENT,
           payload: res.data,
         });
+        dispatch(listStudent());
       })
       .catch((err) => {
         console.log(err);
@@ -34,13 +36,17 @@ export const listStudent = () => {
 
 export const deleteStudent = (id) => {
   return async (dispatch) => {
-    await deleteStudentById(id).then((res) => {
-      dispatch({
-        type: DELETE_STUDENT,
-        payload: { res, id },
+    await deleteStudentById(id)
+      .then((res) => {
+        dispatch({
+          type: DELETE_STUDENT,
+          payload: { res, id },
+        });
+
+        
       })
-    }).catch((err) => {
-      console.log(err);
-    });;
+      .catch((err) => {
+        console.log(err);
+      });
   };
 };

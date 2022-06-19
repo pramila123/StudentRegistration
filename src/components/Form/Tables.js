@@ -15,7 +15,7 @@ import {
   TablePagination,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteStudent } from "../Redux/action";
+import { deleteStudent, listStudent } from "../Redux/action";
 import SuccessMsg from "../Modal/SuccessMsg";
 const StyledTableContainer = styled(TableContainer)`
   height: 67vh;
@@ -66,8 +66,11 @@ const Tables = ({ tableHead, rows }) => {
     if(confirmMsg===true)
     {
       dispatch(deleteStudent(id));
+      dispatch(listStudent())
     }
   }
+
+ 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 

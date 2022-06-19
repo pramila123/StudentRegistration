@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, {  useState } from "react";
 import { useSelector } from "react-redux/es/exports";
 import { Alert, Snackbar } from "@mui/material";
 const SuccessMsg = () => {
-  const { success, loading } = useSelector((state) => state.studentReducer);
+  const { success, loading,error } = useSelector((state) => state.studentReducer);
   const [show, setShow] = useState(loading);
   const handleClose = () => {
     setShow(false);
   };
+
   return (
     <>
       <Snackbar

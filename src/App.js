@@ -1,6 +1,6 @@
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import AddStudent from "./components/Student/AddStudent";
+
 import Home from "./components/Home/Home";
 import {GlobalStyle} from './globalStyles'
 import Header from "./components/Home/Header";
@@ -17,7 +17,7 @@ function App() {
         <Header/>
         <Routes>
           <Route path="/" element={<Home/>}/>
-          <Route path="/student/register" element={<AddStudent />} />
+      
         </Routes>
         <Footer/>
       </Router>
