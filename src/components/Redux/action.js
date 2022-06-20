@@ -1,7 +1,8 @@
-import { deleteStudentById, getStudent, postStudent } from "./services";
+import { deleteStudentById, getStudent, postStudent, studentById } from "./services";
 export const POST_STUDENT = "POST_STUDENT";
 export const FETCH_STUDENT = "FETCH_STUDENT";
 export const DELETE_STUDENT = "DELETE_STUDENT";
+export const GET_STUDENT_ID = " GET_STUDENT_ID";
 export const addStudent = (postData) => {
   return async (dispatch) => {
     await postStudent(postData)
@@ -50,3 +51,15 @@ export const deleteStudent = (id) => {
       });
   };
 };
+
+
+export const getstudentById=(id)=>{
+  return async dispatch=>{
+    await studentById(id).then((res)=>{
+      dispatch({
+        type:GET_STUDENT_ID,
+        payload:res.data
+      })
+    })
+  }
+}

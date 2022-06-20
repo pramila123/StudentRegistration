@@ -2,7 +2,7 @@ import * as React from "react";
 import { styled } from "@mui/material/styles";
 import { AiTwotoneDelete } from "react-icons/ai";
 import { FiEdit } from "react-icons/fi";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 import {
   Tooltip,
   Table,
@@ -16,7 +16,7 @@ import {
   TablePagination,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteStudent, listStudent } from "../Redux/action";
+import { deleteStudent, getstudentById, listStudent } from "../Redux/action";
 import SuccessMsg from "../Modal/SuccessMsg";
 import EditStudent from "../Student/EditStudent";
 const StyledTableContainer = styled(TableContainer)`
@@ -61,18 +61,20 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const Tables = ({ tableHead, rows }) => {
   const dispatch = useDispatch();
-  const {loading}=useSelector(state=>state.studentReducer);
+  const { loading } = useSelector((state) => state.studentReducer);
 
-  const handleDelete=(id)=>{
-    var confirmMsg=window.confirm("Are you sure you want to delete?");
-    if(confirmMsg===true)
-    {
+  const handleDelete = (id) => {
+    var confirmMsg = window.confirm("Are you sure you want to delete?");
+    if (confirmMsg === true) {
       dispatch(deleteStudent(id));
-      dispatch(listStudent())
+      dispatch(listStudent());
     }
-  }
+  };
+  const handleEdit = (id) => {
+    dispatch(getstudentById(id));
+    setOpen(true);
+  };
 
- 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -119,7 +121,7 @@ const Tables = ({ tableHead, rows }) => {
                     {row.sid}
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    {row.firstName} {row.middleName} {row.lastName}
+                    {row.firstName} {row.middleName}  {row.lastName}
                   </StyledTableCell>
                   <StyledTableCell align="right">{row.dob}</StyledTableCell>
                   <StyledTableCell align="right">
@@ -143,23 +145,22 @@ const Tables = ({ tableHead, rows }) => {
                           <AiTwotoneDelete
                             className="delete"
                             onClick={() => {
-                              
                               handleDelete(row.id);
                             }}
                           />
                         </span>
                       </Tooltip>
 
-                     <Tooltip title="Edit">
-                    
+                      <Tooltip title="Edit">
                         <span>
-                         <FiEdit className="edit" onClick={()=>{
-                           setOpen(true)
-                         }} />
+                          <FiEdit
+                            className="edit"
+                            onClick={() => {
+                              handleEdit(row.id);
+                            }}
+                          />
                         </span>
-                     
                       </Tooltip>
-                    
                     </div>
                   </StyledTableCell>
                 </StyledTableRow>
@@ -176,10 +177,13 @@ const Tables = ({ tableHead, rows }) => {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
-      <EditStudent open={open}  handleClose={() => {
+      <EditStudent
+        open={open}
+        handleClose={() => {
           setOpen(false);
-        }}/>
-       {loading ? <SuccessMsg />:""}
+        }}
+      />
+      {loading ? <SuccessMsg /> : ""}
     </div>
   );
 };

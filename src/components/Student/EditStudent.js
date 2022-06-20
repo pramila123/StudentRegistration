@@ -47,15 +47,31 @@ const EditStudent = ({ open, handleClose }) => {
   };
 
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.studentReducer);
+  const { student } = useSelector((state) => state.studentReducer);
 
   const formik = useFormik({
-    initialValues: initialValues,
+    enableReinitialize: true,
+    initialValues: {
+      sid: student.sid,
+      semester: student.semester,
+      firstName: student.firstName,
+      middleName: student.middleName,
+      lastName: student.lastName,
+      gender: student.gender,
+      dob: student.dob,
+      joiningDate: student.joiningDate,
+      faculty: student.faculty,
+      email: student.email,
+      contact: student.contact,
+      fatherName: student.fatherName,
+      parentPhone: student.parentPhone,
+      address: student.address,
+    },
     validationSchema: validationSchema,
     onSubmit: (values) => {
       dispatch(addStudent(values));
 
-      // formik.resetForm();
+      formik.resetForm();
     },
   });
   return (
@@ -280,7 +296,6 @@ const EditStudent = ({ open, handleClose }) => {
           </Grid>
         </StudentContainer>
       </StyledDialog>
-      {loading ? <SuccessMsg /> : ""}
     </>
   );
 };

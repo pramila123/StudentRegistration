@@ -11,3 +11,7 @@ export const getStudent = () => {
 export const deleteStudentById=(id)=>{
   return axios.delete(api+`/student/delete/${id}`)
 }
+
+export const studentById=(id)=>{
+  return axios.get(api+`/student/${id}`)
+}
