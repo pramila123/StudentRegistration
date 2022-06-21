@@ -2,7 +2,7 @@ import * as React from "react";
 import { styled } from "@mui/material/styles";
 import { AiTwotoneDelete } from "react-icons/ai";
 import { FiEdit } from "react-icons/fi";
-import { Link } from "react-router-dom";
+
 import {
   Tooltip,
   Table,
@@ -15,6 +15,7 @@ import {
   Paper,
   TablePagination,
 } from "@mui/material";
+import { student_head } from "../data";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteStudent, getstudentById, listStudent } from "../Redux/action";
 import SuccessMsg from "../Modal/SuccessMsg";
@@ -59,9 +60,9 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const Tables = ({ tableHead, rows }) => {
+const Tables = ({  rows }) => {
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.studentReducer);
+  const { loading ,students} = useSelector((state) => state.studentReducer);
 
   const handleDelete = (id) => {
     var confirmMsg = window.confirm("Are you sure you want to delete?");
@@ -87,6 +88,7 @@ const Tables = ({ tableHead, rows }) => {
     setPage(0);
   };
   const [open, setOpen] = React.useState(false);
+
   return (
     <div>
       <StyledTableContainer component={Paper}>
@@ -94,7 +96,7 @@ const Tables = ({ tableHead, rows }) => {
           <TableHead>
             <TableRow>
               <StyledTableCell>Sid</StyledTableCell>
-              {tableHead.map((item, index) => {
+              {student_head.map((item, index) => {
                 return (
                   <StyledTableCell align="right" key={index}>
                     {item.title}
@@ -106,7 +108,7 @@ const Tables = ({ tableHead, rows }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows
+            {students
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => (
                 <StyledTableRow key={row.id}>
@@ -171,7 +173,7 @@ const Tables = ({ tableHead, rows }) => {
       <TablePagination
         rowsPerPageOptions={[6, 25, 100]}
         component="div"
-        count={rows.length}
+        count={students.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}

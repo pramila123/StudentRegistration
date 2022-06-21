@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Buttons from "../Form/Buttons";
 
 import Input from "../Form/Input";
 import { BsSearch } from "react-icons/bs";
 import Tables from "../Form/Tables";
-import { useSelector, useDispatch } from "react-redux";
-import { student_head } from "../data";
-import { listStudent } from "../Redux/action";
+
 import AddStudent from "../Student/AddStudent";
 const HomeContainer = styled.div`
   background-color: #e0e1f4;
@@ -47,8 +45,6 @@ const ButtonContainer = styled.div``;
 const Home = () => {
   const [open, setOpen] = useState(false);
 
-  const { students } = useSelector((state) => state.studentReducer);
-
   return (
     <HomeContainer>
       <TopContainer>
@@ -71,11 +67,7 @@ const Home = () => {
       </TopContainer>
 
       <ButtonContainer>
-        <Tables
-          tableHead={student_head}
-          rows={students}
-         
-        />
+        <Tables />
       </ButtonContainer>
       <AddStudent
         open={open}

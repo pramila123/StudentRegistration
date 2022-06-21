@@ -3,6 +3,7 @@ import {
   FETCH_STUDENT,
   GET_STUDENT_ID,
   POST_STUDENT,
+  UPDATE_STUDENT,
 } from "./action";
 
 const initialState = {
@@ -40,6 +41,12 @@ export const studentReducer = (state = initialState, action) => {
         ...state,
         student: action.payload,
       };
+
+      case UPDATE_STUDENT:
+        return{
+          ...state,
+          student:action.payload
+        }
     default:
       return state;
   }

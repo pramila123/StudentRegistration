@@ -15,3 +15,7 @@ export const deleteStudentById=(id)=>{
 export const studentById=(id)=>{
   return axios.get(api+`/student/${id}`)
 }
+
+export const editStudent=(values)=>{
+  return axios.put(api+`/student/update`,values)
+}

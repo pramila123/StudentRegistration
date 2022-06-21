@@ -14,10 +14,10 @@ import { useFormik } from "formik";
 
 import { semester_data } from "../data";
 
-import SuccessMsg from "../Modal/SuccessMsg";
+// import SuccessMsg from "../Modal/SuccessMsg";
 import { useDispatch, useSelector } from "react-redux";
-import { addStudent } from "../Redux/action";
-import { initialValues, validationSchema } from "./Validate";
+import {  updateStudent } from "../Redux/action";
+import { validationSchema } from "./Validate";
 
 const StyledDialog = styled(Dialog)``;
 const StudentContainer = styled.div`
@@ -52,6 +52,7 @@ const EditStudent = ({ open, handleClose }) => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
+      id: student.id,
       sid: student.sid,
       semester: student.semester,
       firstName: student.firstName,
@@ -69,9 +70,10 @@ const EditStudent = ({ open, handleClose }) => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      dispatch(addStudent(values));
+      dispatch(updateStudent(values));
 
-      formik.resetForm();
+     
+      handleClose();
     },
   });
   return (
@@ -96,7 +98,7 @@ const EditStudent = ({ open, handleClose }) => {
 
               <FormControl size="small" fullWidth={true}>
                 <Select
-                  value={faculty}
+                  value={student.semester}
                   onChange={handleChange}
                   error={!!formik.errors.semester}
                   {...formik.getFieldProps("semester")}

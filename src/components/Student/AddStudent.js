@@ -55,7 +55,7 @@ const AddStudent = ({ open, handleClose }) => {
     onSubmit: (values) => {
       dispatch(addStudent(values));
 
-      // formik.resetForm();
+      formik.resetForm();
     },
   });
   return (
